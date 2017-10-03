@@ -7,7 +7,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.client.RestTemplate;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 
 import sonarcollect.dto.ComponentTotals;
 import sonarcollect.dto.IssuesSearchResult;
@@ -24,7 +27,7 @@ public class Application implements CommandLineRunner {
             "http://sonar.backbase.dev/api/issues/search?component={component}&resolved=false&severities={severities}&languages=java&statuses=OPEN,CONFIRMED&facetMode=count";
 
     public static void main(String args[]) {
-        SpringApplication.run(Application.class);
+        SpringApplication.run(Application.class, args);
     }
 
     public Application() {
@@ -33,8 +36,13 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        ComponentTotals portalTotals = getTotals("com.backbase.cxp:portal");
-        log.debug("{}", portalTotals);
+        log.info("run({})", args);
+        String componentsList = args[0];
+        log.info("reading components from file: '{}'", Paths.get(componentsList).toAbsolutePath());
+        List<String> components = Files.readAllLines(Paths.get(componentsList));
+        components.stream()
+                .map(this::getTotals)
+                .forEach(totals -> log.info("totals:{}", totals));
     }
 
     private ComponentTotals getTotals(String component) {

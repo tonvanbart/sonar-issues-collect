@@ -1,0 +1,3 @@
+com.backbase.cxp:portal
+com.backbase.cxp:provisioning-api
+com.backbase.cxp:publishing
