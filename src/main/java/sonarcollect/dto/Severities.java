@@ -5,5 +5,5 @@ package sonarcollect.dto;
  */
 public enum Severities {
 
-    INFO, MINOR, MAJOR, CRITICAL, BLOCKER;
+    MAJOR, CRITICAL, BLOCKER;
 }
