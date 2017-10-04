@@ -2,7 +2,6 @@ package sonarcollect.dto;
 
 import java.time.LocalDateTime;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -28,6 +27,10 @@ public class ComponentTotals {
 
     public String getComponent() {
         return component;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
     }
 
     public Map<Severities, Integer> getTotals() {

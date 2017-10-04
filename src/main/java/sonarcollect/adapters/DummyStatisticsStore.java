@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import sonarcollect.StatisticsStore;
@@ -14,6 +15,7 @@ import sonarcollect.dto.ComponentTotals;
  * @since 03/10/2017.
  */
 @Component
+@Profile("default")
 public class DummyStatisticsStore implements StatisticsStore {
 
     private static final Logger LOG = LoggerFactory.getLogger(DummyStatisticsStore.class);
