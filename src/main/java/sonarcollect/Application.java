@@ -29,7 +29,7 @@ public class Application implements CommandLineRunner {
     private StatisticsStore statisticsStore;
 
     private static final String urlTemplate =
-            "http://sonar.backbase.dev/api/issues/search?component={component}&resolved=false&severities={severities}&languages=java&statuses=OPEN,CONFIRMED&facetMode=count";
+            "http://sonar.backbase.dev:9000/api/issues/search?componentKeys={component}&resolved=false&severities={severities}&languages=java&statuses=OPEN,CONFIRMED&facetMode=count";
 
     public static void main(String args[]) {
         SpringApplication.run(Application.class, args);
@@ -63,7 +63,9 @@ public class Application implements CommandLineRunner {
     private Integer getTotal(String component, Severities severities) {
         log.trace("getTotal('{}',{})", component, severities);
         IssuesSearchResult result = restTemplate.getForObject(urlTemplate, IssuesSearchResult.class, component, severities);
-        return result.getTotal();
+        Integer total = result.getTotal();
+        log.trace("getTotal('{}',{}) --> {}", component, severities, total);
+        return total;
     }
 
 }
