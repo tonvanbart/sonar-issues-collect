@@ -1,12 +1,17 @@
 package sonarcollect.repository;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import sonarcollect.dto.ComponentTotals;
 import sonarcollect.dto.Severities;
@@ -21,7 +26,8 @@ public class DatabaseComponentTotals {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private LocalDateTime created;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
 
     private String component;
 
@@ -35,7 +41,8 @@ public class DatabaseComponentTotals {
     }
 
     public DatabaseComponentTotals(LocalDateTime created, String component, Integer blockers, Integer criticals, Integer majors) {
-        this.created = created;
+        Instant instantCreated = created.atZone(ZoneId.systemDefault()).toInstant();
+        this.created = Date.from(instantCreated);
         this.component = component;
         this.blockers = blockers;
         this.criticals = criticals;
@@ -43,7 +50,8 @@ public class DatabaseComponentTotals {
     }
 
     public DatabaseComponentTotals(ComponentTotals compTotals) {
-        this.created = compTotals.getCreated();
+        Instant instantCreated = compTotals.getCreated().atZone(ZoneId.systemDefault()).toInstant();
+        this.created = Date.from(instantCreated);
         this.component = compTotals.getComponent();
         Map<Severities, Integer> totals = compTotals.getTotals();
         this.blockers = totals.get(Severities.BLOCKER);

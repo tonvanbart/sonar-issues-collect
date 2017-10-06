@@ -12,6 +12,7 @@
     </root>
 
     <logger name="sonarcollect" level="INFO"/>
+    <logger name="sonarcollect.Application" level="TRACE"/>
     <logger name="sonarcollect.adapters" level="TRACE"/>
 
 </configuration>
