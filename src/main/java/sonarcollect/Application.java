@@ -29,7 +29,7 @@ public class Application implements CommandLineRunner {
     private StatisticsStore statisticsStore;
 
     private static final String urlTemplate =
-            "http://sonar.backbase.dev:9000/api/issues/search?componentKeys={component}&resolved=false&severities={severities}&languages=java&statuses=OPEN,CONFIRMED&facetMode=count";
+            "http://sonar.backbase.dev:9000/api/issues/search?componentKeys={component}&resolved=false&severities={severities}&languages=java&statuses=OPEN,CONFIRMED&facetMode=count&ps=2";
 
     public static void main(String args[]) {
         SpringApplication.run(Application.class, args);
